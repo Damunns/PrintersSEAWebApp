@@ -1,0 +1,203 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            font-family: "Montserrat";
+        }
+
+        :is(h1, h2, h3, h4, h5, h6) {
+            font-family: "Montserrat";
+        }
+    </style>
+</head>
+<div>
+    &nbsp;
+</div>
+<p style='text-align: center'>
+    <span style='font-size:23.0pt'>
+        Digital &amp; Technology Solutions
+    </span>
+</p>
+<p style='text-align: center'>
+    <span style='font-size:21.0pt;font-family:"Montserrat"'>
+        Degree Apprenticeship
+    </span>
+</p>
+<p style='text-align: center'>
+    <span style='font-size:12.0pt;font-family:"Montserrat"'>
+        QAC020N227S
+    </span>
+</p>
+
+<p style='text-align: center'>
+    <span style='font-size:25.0pt;font-family:"Montserrat"'>
+        Software Engineering and Agile
+    </span>
+</p>
+
+<p style='text-align: center'>
+    <span style='font-size: 12.0pt; font-family: "Montserrat"'>
+        Level 5 - 20 credits
+    </span>
+</p>
+<h1 style='font-family: "Montserrat"'>
+    {{ title }}
+</h1>
+<h3 style='font-family: "Montserrat"'>
+    {{ message }}
+</h3>
+<h2 style='font-family: "Montserrat"'>
+    Overview
+</h2>
+<h3>
+    Task 1 - Web Development Project (30%)
+</h3>
+<p>
+    Description: Various development artefacts.<br>
+    Suggested Word count: 1000 words/lines of code.<br>
+    ** Adjusted to represent the estimate for the number of lines of code associated with the core program logic.
+</p>
+<h3>
+    Task 2 - Report I: Agile in Web Application Development (10%)
+</h3>
+<p>
+    Description: description of the web application development.<br>
+    Suggested Word count: 500 words.
+</p>
+<h3>
+    Task 3 - Report II: Agile Overview (50%)
+</h3>
+<p>
+    Description: description of an agile approach to IT/software development.<br>
+    Suggested Word count: 1500 words.
+</p>
+<h3>
+    Academic convention (10%)
+</h3>
+<p>
+    All submissions must have a completed Cover Sheet (see Appendix A) attached to your submission.<br><br>
+    The submission entails creating a report that includes addressing a set of pre-determined questions. Your ability to answer the questions, your comprehension of the topic, and critical evaluation of the project, as well as your choice of approaches and tools, will be evaluated in the report.
+</p>
+<h2>
+    Web Development Project
+</h2>
+<h3>
+    Coding Specification
+</h3>
+<h4>
+    Instructions
+</h4>
+<p>
+    Please carefully read the full Assessment Brief including the Marking Rubric before starting your assignment and to check with your tutor, if necessary, to ensure that you have fully understood what is required.
+</p>
+<h4>
+    Requirements
+</h4>
+<p>
+    You will be provided an incomplete web application. You are required to complete and test the web database application in Python. Describe the programming concepts and syntax used. Assume that an Agile Approach is to be used to develop the web application project and describe its use.<br><br>
+
+    The application should be focused on a topic that is relevant to your job role and/or company. The application could be used to handle IT Assets, Contacts, Help Desk Tickets, or Customer Information. To suit the brief, you may need to simplify your real data. Ask your tutor for help if you are unsure.<br><br>
+
+    The web application should feature a small database (minimum of two tables and maximum of four tables) that can be implemented as SQLite tables. For testing purposes, the tables in the final database should contain multiple sample records (rows). A variety of relevant data types should be included in table columns. Fields that can serve as the Primary and Foreign Keys should be included. If two or more tables are related, then an Entity Relationship Diagram (ERD) would be required to show the defined entities, their attributes, and relationships between the tables.<br><br>
+
+    -	Users should be able to explore records from all the database tables, as well as add, update, and delete records from all of the tables, using the web application.<br>
+    -	The web application should have two types of users/roles - admin, and regular.<br>
+    -	Admin and Regular users have to register and login in order to use the web application. All CRUD (create, read, update and delete) operations, with the exception of DELETE, are available to regular users.<br>
+    -	Admin users should have the ability to perform all CRUD operations on the database tables and make changes to the underlying database data.<br>
+    -	Both regular users and administrators will be able to use the web application.<br>
+    -	Regular users should not be able to make changes to the underlying database data, but administrators should be able to.<br><br>
+
+    Validation should be implemented so that the user cannot conduct an invalid operation or enter data that is not in compliance with the field's requirements. When validation rules are broken, appropriate error messages should be displayed.
+</p>
+<h4>
+    Guidelines
+</h4>
+<p>
+    -	The web application should follow the core design rules of modularisation by breaking down the functionality into relevant components.<br>
+    -	The source code of the web application should incorporate features that will improve the code quality and readability by applying basic programming rules such as appropriate naming conventions, indentation, comments, and refactoring.<br>
+    -	Usability of the web application should be considered. For example, after finishing an activity, the user should be presented an appropriate notification indicating whether their activity was successful or unsuccessful. Also, before exiting the application or deleting a record, a confirmation should be presented to the user.
+</p>
+<h3>
+    Task 1 - Web Application Development (30%)
+</h3>
+<p>
+    Estimated/suggested lines of code 1000.<br>
+    Use Python programming language and an appropriate framework, IDE, DBMS to complete and test a web application based on an agile software development approach that satisfies the criteria detailed in the requirements and guidelines section above.
+</p>
+<h4>
+    Evidence required:
+</h4>
+<p>
+    -	A brief summary/explanation of the application and any dependencies (This could be included in a read me text document).<br>
+    -	A Source code that can be submitted in any of the following options:<br>
+    o	Option 1: A URL to an online source control repository such as GitHub.<br>
+    o	Option 2: A zip file of all coding artefacts, including the SQLite database.<br>
+    -	A running web application hosted on a free public cloud platform such as Heroku, AWS or Azure (or hosted locally if this is not possible - with video evidence).
+</p>
+<h2>
+    Reports
+</h2>
+<h3>
+    Task 2 - Agile in Web Application Development (10%)
+</h3>
+<p>
+    Estimated 500 words.<br><br>
+    Explain the elements you used (or could have used) based on an agile framework in the development of your web application. Explain what each of the elements does, how you may have used it and where possible provide evidence of its use in your web application development.
+</p>
+<h4>
+    Evidence required:
+</h4>
+<p>
+    -	A brief explanation of the web development project and artefacts.<br>
+    -	Evidence of artefacts used (indicate the option chosen to submit the source code).
+</p>
+<h3>
+    Task 3 - Report on Agile Overview (50%)
+</h3>
+<p>
+    Estimated 1500 words.<br><br>
+    Select an aspect of Agile software development approach that is of interest to you and your organization, for example - (i) approach to running IT/software development projects; (ii) approach to running IT/software development teams (including roles and responsibilities of team members); (iii) approach to measuring IT/software development operations and tasks; (iv) approach to automating IT/software development operations and tasks:<br>
+    -	Compare, contrast, and critically evaluate the essential features of your IT/Software development approach within your workplace to an Agile software development framework such as SCRUM, KANBAN, LEAN, etc.  Ensure that you cover all the important features of agile project development principles that relates to the framework you have chosen.<br>
+    -	Propose an approach for introducing/improving an agile development approach in a way that would benefit your organisation. Suggest ways of implementing your proposed approach.
+</p>
+<h2>
+    Academic Conventions (10%)
+</h2>
+<p>
+    To avoid duplication of logic, your application code and related artefacts should follow secure programming practises such as naming conventions, indentation, comments, and refactoring. Screenshots and messages should be well-designed, with consistent formatting. The supporting documentation and report should be properly presented as well, with consistent formatting, diagrams, and screenshots as needed, as well as correct spelling, punctuation, and grammar. It should at the very least include:<br>
+    -	A fully completed Cover Sheet including correct word count - See Appendix A<br>
+    -	A Table of Contents<br>
+    -	A Bibliography, listing where appropriate any references that were cited in your report. Relevant references should be cited and formatted using the Roehampton Harvard style.<br>
+    See the Module Assignment Page on Canvas for the Roehampton Guide to Harvard Referencing.<br>
+    -	A bibliography/list of any references cited in the code should be included with your website code. Relevant code references should be cited and formatted using the (PDF) Referencing within Code in Software Engineering Education! (researchgate.net):<br>
+    <a href="https://www.researchgate.net/publication/233473922_Referencing_within_Code_in_Software_Engineering_Education">Referencing within Code in Software Engineering Education</a> (PDF)
+</p>
+<h2>
+    General Assessment Brief Guidance
+</h2>
+<h3>
+    Supporting Assessment documentation, rules, and regulations
+</h3>
+<p>
+    To view the academic rules and guidance documents for the topics listed below please follow this link to the Degree Apprenticeship Handbook (DAH) module in Canvas: <a href="https://canvas.qa.com/courses/1041">Degree Apprenticeship Handbook (DAH)</a><br><br>
+
+    If you are unable to access this module, please contact <a href="mailto:qaadegreeadmin@qa.com">qaadegreeadmin@qa.com</a> who will be able to resolve this for you.<br><br>
+
+    The guidance found in the DAH includes:<br><br>
+
+    -	University of Roehampton Academic Regulations<br>
+    -	Regulations & Quality Assurance Overview<br>
+    -	Key contacts<br>
+    -	Mitigating Circumstance documentation<br>
+    -	Academic misconduct Procedure<br>
+    -	Final degree award calculation<br>
+    -	Appeals guidance<br>
+    -	Examination regulations<br>
+    -	Student feedback committees<br>
+    -	External examiner reports
+</p>
+{% endblock %}
