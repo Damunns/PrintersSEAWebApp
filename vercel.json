@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "/Software_Engineering___Agile_Web_Application/wsgi.py",
+      "src": "Software_Engineering___Agile_Web_Application/wsgi.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/Software_Engineering___Agile_Web_Application/wsgi.py"
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "src": "/(.*)",
+      "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
     }
   ]
 }
