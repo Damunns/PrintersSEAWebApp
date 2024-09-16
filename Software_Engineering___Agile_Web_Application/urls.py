@@ -3,7 +3,8 @@ Definition of urls for Software_Engineering___Agile_Web_Application.
 """
 
 from datetime import datetime
-from django.urls import path
+from email.mime import application
+from django.urls import path, include
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
