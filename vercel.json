@@ -10,6 +10,10 @@
     {
       "src": "/(.*)",
       "dest": "/Software_Engineering___Agile_Web_Application/wsgi.py"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     }
   ]
 }
