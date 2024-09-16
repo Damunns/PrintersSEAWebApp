@@ -1,15 +1,15 @@
 {
-"version": 2,
-"builds": [
-{
-"src": "run.py",
-"use": "@vercel/python"
-}
-],
-"routes": [
-{
-"src": "/(.*)",
-"dest": "run.py"
-}
-]
+  "version": 2,
+  "builds": [
+    {
+      "src": "/Software_Engineering___Agile_Web_Application/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/Software_Engineering___Agile_Web_Application/wsgi.py"
+    }
+  ]
 }
