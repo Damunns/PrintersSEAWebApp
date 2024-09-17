@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/app/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
     }
