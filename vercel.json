@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/*.py": {
-      "runtime": "vercel-python@3.12.6"
-    }
-  },
   "builds": [
     {
       "src": "Software_Engineering___Agile_Web_Application/wsgi.py",
@@ -30,5 +25,9 @@
       "src": "/(.*)",
       "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
     }
+  ]
+  "includeFiles": [
+    "venv/lib/python3.9/site-packages/decouple/**",
+    ".env"
   ]
 }
