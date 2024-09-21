@@ -14,7 +14,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('brief/', views.brief, name='brief'),
     path('about/', views.about, name='about'),
-    path('contact/', views.contact, name='contact'),
     path('login/',
          LoginView.as_view(
              template_name='app/login.html',

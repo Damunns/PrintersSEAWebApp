@@ -3,10 +3,24 @@
     {
       "src": "Software_Engineering___Agile_Web_Application/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.12.6" }
+      "config": { 
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.12.6" 
+      }
+    },
+    {
+      "src": "build.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles_build"
+       }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
