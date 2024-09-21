@@ -86,7 +86,7 @@ DATABASES = {
 if not DATABASES['default']:
     DATABASES = {
     'default': {
-        'ENGINE': '@vercel/postgres',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'printers-sea-webapp-v1-postgres',
         'HOST': 'ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech',
         'USER':'default',
@@ -95,8 +95,7 @@ if not DATABASES['default']:
         'PORT': '8000'
     }
     }
-
-DATABASES['default'] = dj_database_url.config()
+#postgres://default:pyiZng2aNQY6@ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
