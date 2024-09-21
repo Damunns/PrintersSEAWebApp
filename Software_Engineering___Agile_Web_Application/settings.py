@@ -88,11 +88,11 @@ if not DATABASES['default']:
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'printers-sea-webapp-v1-postgres',
-        'HOST': 'ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech',
+        # 'HOST': 'ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech',
         'USER':'default',
         'PASSWORD': 'pyiZng2aNQY6',
-        'HOST': 'localhost',
-        'PORT': '8000'
+        # 'HOST': 'localhost',
+        # 'PORT': '5432'
     }
     }
 #postgres://default:pyiZng2aNQY6@ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require

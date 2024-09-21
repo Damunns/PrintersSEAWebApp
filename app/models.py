@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 class Printer(models.Model):
+    id = models.AutoField(primary_key=True)
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
