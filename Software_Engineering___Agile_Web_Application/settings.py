@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'Software_Engineering___Agile_Web_Application.wsgi.applicatio
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL', default='')),
+    'default': dj_database_url.config(default=config('POSTGRES_URL', default='')),
 }
 
 if not DATABASES['default']:
