@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import posixpath
 import dj_database_url
-from decouple import config
+from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,11 +80,21 @@ WSGI_APPLICATION = 'Software_Engineering___Agile_Web_Application.wsgi.applicatio
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(default=config('DATABASE_URL', default='')),
 }
+
+if not DATABASES['default']:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'postgresql',
+        'NAME': 'printers-sea-webapp-v1-postgres',
+        'HOST': 'ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech',
+        'USER':'default',
+        'PASSWORD': 'pyiZng2aNQY6',
+        'HOST': 'localhost',
+        'PORT': '8000'
+    }
+    }
 
 DATABASES['default'] = dj_database_url.config()
 
