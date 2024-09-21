@@ -26,8 +26,4 @@
       "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
     }
   ]
-  "includeFiles": [
-    "venv/lib/python3.9/site-packages/decouple/**",
-    ".env"
-  ]
 }
