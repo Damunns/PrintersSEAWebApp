@@ -86,7 +86,7 @@ DATABASES = {
 if not DATABASES['default']:
     DATABASES = {
     'default': {
-        'ENGINE': 'postgresql',
+        'ENGINE': '@vercel/postgres',
         'NAME': 'printers-sea-webapp-v1-postgres',
         'HOST': 'ep-snowy-math-a4dpzdt6-pooler.us-east-1.aws.neon.tech',
         'USER':'default',

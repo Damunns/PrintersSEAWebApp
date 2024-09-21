@@ -31,6 +31,7 @@ def brief(request):
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
+    printers = Printer.objects.all()
     return render(
         request,
         'app/about.html',
@@ -38,5 +39,6 @@ def about(request):
             'title':'About',
             'message':'This is my application description page.',
             'year':datetime.now().year,
+            'printers': printers,
         }
     )

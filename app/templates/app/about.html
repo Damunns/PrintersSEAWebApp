@@ -1,10 +1,45 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Printers</title>
+</head>
 <h2>{{ title }}</h2>
 <h3>{{ message }}</h3>
-
-<p>Use this area to provide additional information.</p>
-
+<body></body>
+    <h1>Printers List</h1>
+    
+    {% if printers %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Location</th>
+                    <th>IP Address</th>
+                    <th>MAC Address</th>
+                    <th>Manufacture Date</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the printers and display each one -->
+                {% for printer in printers %}
+                    <tr>
+                        <td>{{ printer.brand }}</td>
+                        <td>{{ printer.model }}</td>
+                        <td>{{ printer.location }}</td>
+                        <td>{{ printer.ip_address }}</td>
+                        <td>{{ printer.mac_address }}</td>
+                        <td>{{ printer.manufacture_date }}</td>
+                        <td>{{ printer.comments }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No printers found.</p>
+    {% endif %}
+</body>
 {% endblock %}
