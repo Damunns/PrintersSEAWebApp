@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Because I am using postgres instead of sqlite
 *.sqlite3
+
+# Necessary for secrets
+*.env
