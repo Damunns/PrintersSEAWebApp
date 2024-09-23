@@ -21,12 +21,5 @@
       "src": "/(.*)",
       "dest": "Software_Engineering___Agile_Web_Application/wsgi.py"
     }
-  ],
-  "hooks": {
-    "build": {
-      "commands": [
-        "python Software_Engineering___Agile_Web_Application/manage.py collectstatic --noinput"
-      ]
-    }
-  }
+  ]
 }
