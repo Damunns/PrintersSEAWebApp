@@ -6,6 +6,21 @@
 }
 
 #printers-table{
-  border:solid blue;
+  border-spacing: 100px!important;
 }
 
+#printers-table th{
+  border-top: solid grey 1px;
+  border-bottom: solid grey 1px;
+  background-color: lightgrey;
+}
+
+#printers-table td{
+  border-bottom: solid grey 1px;
+  white-space: nowrap;
+}
+
+#about-container{
+  display:flex;
+  justify-content: center;
+}
