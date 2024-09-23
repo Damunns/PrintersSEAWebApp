@@ -23,4 +23,5 @@
 #about-container{
   display:flex;
   justify-content: center;
+  border:solid black 1px;
 }
