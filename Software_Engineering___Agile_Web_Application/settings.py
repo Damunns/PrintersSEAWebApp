@@ -79,9 +79,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Software_Engineering___Agile_Web_Application.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
 DATABASES = {
     'default': dj_database_url.config(default=config('POSTGRES_URL', default='')),
 }
+
+
 
 if not DATABASES['default']:
     DATABASES = {
