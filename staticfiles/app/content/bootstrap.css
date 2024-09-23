@@ -6814,13 +6814,9 @@ td.visible-print {
     display: none !important;
   }
 }
-
-// <uniquifier > : Use a unique and descriptive class name
-// <weight > : Use a value from 100 to 900
-
-.montserrat-assignmentBrief {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.assignment-brief {
+  /* font-family: "Montserrat", sans-serif; */
+  font-family: "Consolas";
+  font-weight: 400;
 }
