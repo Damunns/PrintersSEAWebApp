@@ -1,6 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.brief-container {
+* {
   font-family: "Montserrat", sans-serif !important;
   font-weight: 400;
+}
+
+#printers-table{
+  border-spacing: 100px!important;
+}
+
+#printers-table th{
+  border-top: solid grey 1px;
+  border-bottom: solid grey 1px;
+  background-color: lightgrey;
+}
+
+#printers-table td{
+  border-bottom: solid grey 1px;
+  white-space: nowrap;
+}
+
+#about-container{
+  display:flex;
+  justify-content: center;
 }

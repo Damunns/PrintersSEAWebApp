@@ -1,11 +1,12 @@
 {% extends "app/layout.html" %}
 {% block content %}
     <h2>{{ title }}</h2>
-    <h3>{{ message }}</h3>
+    <p>{{ message }}</p>
     <h1>Printers List</h1>
     
-    {% if printers %}
-        <table border="1">
+    <div class="about-container">
+        {% if printers %}
+        <table id="printers-table">
             <thead>
                 <tr>
                     <th>Brand</th>
@@ -35,5 +36,7 @@
     {% else %}
         <p>No printers found.</p>
     {% endif %}
+    </div>
+    
 </body>
 {% endblock %}
