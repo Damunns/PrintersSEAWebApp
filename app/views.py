@@ -22,6 +22,7 @@ def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
     printers = Printer.objects.all()
+    selection  = []
     return render(
         request,
         'app/about.html',

@@ -17,3 +17,25 @@ class Printer(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model} - {self.location}"
+    
+    def addPrinter(self, brand, model, location, ip_address, mac_address, manufacture_date, comments):
+        new_printer = Printer(brand=brand, model=model, location=location, ip_address=ip_address, mac_address=mac_address, manufacture_date=manufacture_date, comments=comments)
+        new_printer.save()
+        return new_printer
+    
+    def editPrinter(self, id, brand, model, location, ip_address, mac_address, manufacture_date, comments):
+        printer = Printer.objects.get(id=id)
+        printer.brand = brand
+        printer.model = model
+        printer.location = location
+        printer.ip_address = ip_address
+        printer.mac_address = mac_address
+        printer.manufacture_date = manufacture_date
+        printer.comments = comments
+        printer.save()
+        return printer
+
+    def deletePrinter(self, id):
+        printer = Printer.objects.get(id=id)
+        printer.delete()
+        return None

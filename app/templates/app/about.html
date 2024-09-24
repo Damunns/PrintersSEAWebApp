@@ -1,14 +1,23 @@
 {% extends "app/layout.html" %}
 {% block content %}
-    <h2>{{ title }}</h2>
-    <p>{{ message }}</p>
-    <h1>Printers List</h1>
-    
-    <div class="about-container">
-        {% if printers %}
-        <table id="printers-table">
+<h2>{{ title }}</h2>
+<p>{{ message }}</p>
+<div class="about-container">
+    <div class='table-title-container'>
+        <h1>Printers List</h1>
+        <div class="table-controls-container">
+            <i class="fa fa-solid fa-plus fa-3x" data-toggle="modal" data-target=".add-modal"></i>
+            <i class="fa fa-solid fa-trash fa-3x" data-toggle="modal" data-target=".confirmation-modal"></i>
+            <i class="fa fa-solid fa-pencil fa-3x" data-toggle="modal" data-target=".edit-modal"></i>
+        </div>
+    </div>
+    {% if printers %}
+    <div class='table-container'>
+        <table class="table">
             <thead>
                 <tr>
+                    <th></th>
+                    <th>ID</th>
                     <th>Brand</th>
                     <th>Model</th>
                     <th>Location</th>
@@ -21,22 +30,82 @@
             <tbody>
                 <!-- Loop through the printers and display each one -->
                 {% for printer in printers %}
-                    <tr>
-                        <td>{{ printer.brand }}</td>
-                        <td>{{ printer.model }}</td>
-                        <td>{{ printer.location }}</td>
-                        <td>{{ printer.ip_address }}</td>
-                        <td>{{ printer.mac_address }}</td>
-                        <td>{{ printer.manufacture_date }}</td>
-                        <td>{{ printer.comments }}</td>
-                    </tr>
+                <tr>
+                    <td><input class="form-check-input" type="checkbox" value="{{ printer.id }}"></td>
+                    <td>{{ printer.id }}</td>
+                    <td>{{ printer.brand }}</td>
+                    <td>{{ printer.model }}</td>
+                    <td>{{ printer.location }}</td>
+                    <td>{{ printer.ip_address }}</td>
+                    <td>{{ printer.mac_address }}</td>
+                    <td>{{ printer.manufacture_date }}</td>
+                    <td>{{ printer.comments }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
+        {% else %}
         <p>No printers found.</p>
-    {% endif %}
+        {% endif %}
+        <div class="modal edit-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit rows</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Edits rows here</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal add-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add rows</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Add rows here</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal confirmation-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Action Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you wish to proceed</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+</div>
+
 </body>
 {% endblock %}
