@@ -20,8 +20,8 @@
   white-space: nowrap;
 }
 
-#about-container{
+.about-container{
   display:flex;
-  justify-content: center;
-  border:solid black 1px;
+  justify-content: flex-start;
+  /* border:solid black 1px; */
 }

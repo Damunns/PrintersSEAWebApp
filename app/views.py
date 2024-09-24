@@ -18,17 +18,6 @@ def home(request):
             'year':datetime.now().year,
         }
     )
-def brief(request):
-    """Renders the brief page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/brief.html',
-        {
-            'title':'Assignment Brief',
-            'year':datetime.now().year,
-        }
-    )
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
