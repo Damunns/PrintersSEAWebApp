@@ -3,19 +3,20 @@
 <h2>{{ title }}</h2>
 <p>{{ message }}</p>
 <div class="about-container">
-    <form action="#" method="get">
+    <form action="{% url 'update_printers' printer.id %}" method="post">
+        {% csrf_token %}
         <div class='table-title-container'>
             <h1>Printers List</h1>
             <div class="table-controls-container">
                 <!-- <i class="fa fa-solid fa-plus fa-3x" type="submit" data-toggle="modal" data-target=".add-modal" name="addRows"></i>
                 <i class="fa fa-solid fa-trash fa-3x" type="submit" data-toggle="modal" data-target=".confirmation-modal" name="removeRows"></i>
                 <i class="fa fa-solid fa-pencil fa-3x" type="submit" data-toggle="modal" data-target=".edit-modal" name="editRows"></i> -->
-                <button type="submit" value="" class="icon-button fa fa-solid fa-plus fa-3x" data-toggle="modal"
-                    data-target=".add-modal" name="addRows"></button>
-                <button type="submit" value="" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
-                    data-target=".confirmation-modal" name="removeRows" form='selection'></button>
+                <button type="submit" value="Update" class="icon-button fa fa-solid fa-plus fa-3x"></button>
+                <!-- data-toggle="modal" data-target=".add-modal" -->
+                <!-- <button type="submit" value="" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
+                    data-target=".confirmation-modal" name="removeRows"></button>
                 <button type="submit" value="" class="icon-button fa fa-solid fa-pencil fa-3x" data-toggle="modal"
-                    data-target=".edit-modal" name="editRows" form='selection'></button>
+                    data-target=".edit-modal" name="editRows"></button> -->
             </div>
         </div>
         {% if printers %}
@@ -36,23 +37,19 @@
                 </thead>
                 <tbody>
                     <!-- Loop through the printers and display each one -->
-                    <form id="selection" action=''>
-                        {% for printer in printers %}
-                        <tr>
-                            <td><input name='checkbox{{ printer.id }}' class="form-check-input" type="checkbox"
-                                    value="{{ printer.id }}"></td>
-                            <td>{{ printer.id }}</td>
-                            <td>{{ printer.brand }}</td>
-                            <td>{{ printer.model }}</td>
-                            <td>{{ printer.location }}</td>
-                            <td>{{ printer.ip_address }}</td>
-                            <td>{{ printer.mac_address }}</td>
-                            <td>{{ printer.manufacture_date }}</td>
-                            <td>{{ printer.comments }}</td>
-                        </tr>
-                        {% endfor %}
-
-                    </form>
+                    {% for printer in printers %}
+                    <tr>
+                        <td><input name='printer' class="form-check-input" type="radio" value="{{ printer.id }}"></td>
+                        <td>{{ printer.id }}</td>
+                        <td>{{ printer.brand }}</td>
+                        <td>{{ printer.model }}</td>
+                        <td>{{ printer.location }}</td>
+                        <td>{{ printer.ip_address }}</td>
+                        <td>{{ printer.mac_address }}</td>
+                        <td>{{ printer.manufacture_date }}</td>
+                        <td>{{ printer.comments }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             {% else %}
@@ -118,45 +115,46 @@
                 </div>
             </div>
         </div>
-        <div class="modal add-modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add rows</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Add rows here</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+    </div>
+    <div class="modal add-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add rows</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-        </div>
-        <div class="modal confirmation-modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Action Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Do you wish to proceed</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                <div class="modal-body">
+                    <p>Add rows here</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal confirmation-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Action Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you wish to proceed</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 </body>
