@@ -3,20 +3,15 @@
 <h2>{{ title }}</h2>
 <p>{{ message }}</p>
 <div class="about-container">
-    <form action="{% url 'update_printers' printer.id %}" method="post">
+    <form action="{% url 'update_printers' %}" method="post">
         {% csrf_token %}
         <div class='table-title-container'>
             <h1>Printers List</h1>
             <div class="table-controls-container">
-                <!-- <i class="fa fa-solid fa-plus fa-3x" type="submit" data-toggle="modal" data-target=".add-modal" name="addRows"></i>
-                <i class="fa fa-solid fa-trash fa-3x" type="submit" data-toggle="modal" data-target=".confirmation-modal" name="removeRows"></i>
-                <i class="fa fa-solid fa-pencil fa-3x" type="submit" data-toggle="modal" data-target=".edit-modal" name="editRows"></i> -->
-                <button type="submit" value="Update" class="icon-button fa fa-solid fa-plus fa-3x"></button>
+                <button type="submit" value="Update" class="icon-button fa fa-solid fa-plus fa-3x" name="addRows"></button>
                 <!-- data-toggle="modal" data-target=".add-modal" -->
-                <!-- <button type="submit" value="" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
-                    data-target=".confirmation-modal" name="removeRows"></button>
-                <button type="submit" value="" class="icon-button fa fa-solid fa-pencil fa-3x" data-toggle="modal"
-                    data-target=".edit-modal" name="editRows"></button> -->
+                <!-- <button type="submit" value="Update" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal" data-target=".confirmation-modal" name="removeRows"></button>
+                <button type="submit" value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" data-toggle="modal" data-target=".edit-modal" name="editRows"></button> -->
             </div>
         </div>
         {% if printers %}
