@@ -31,20 +31,23 @@
                 {% for printer in printers %}
                 <tr>
                     <form>
-                        <td>{{ printer.id }}</td>
-                        <td>{{ printer.brand }}</td>
-                        <td>{{ printer.model }}</td>
-                        <td>{{ printer.location }}</td>
-                        <td>{{ printer.ip_address }}</td>
-                        <td>{{ printer.mac_address }}</td>
-                        <td>{{ printer.manufacture_date }}</td>
-                        <td>{{ printer.comments }}</td>
+                    <td>{{ printer.id }}</td>
+                    <td>{{ printer.brand }}</td>
+                    <td>{{ printer.model }}</td>
+                    <td>{{ printer.location }}</td>
+                    <td>{{ printer.ip_address }}</td>
+                    <td>{{ printer.mac_address }}</td>
+                    <td>{{ printer.manufacture_date }}</td>
+                    <td>{{ printer.comments }}</td>
 
-                        <td><button value="Delete" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
+                    <td>
+                        <button value="Delete" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
                                 data-target=".confirmation-modal" name="removeRows"></button>
-                        </td>
-                        <td><button value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
-                                data-toggle="modal" data-target=".edit-modal-{{ printer.id }}"></button></td>
+                    </td>
+                    <td>
+                        <button value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
+                                data-toggle="modal" data-target=".edit-modal-{{ printer.id }}"></button>
+                    </td>
                     </form>
                 </tr>
                 {% endfor %}
