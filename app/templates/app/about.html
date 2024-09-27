@@ -3,41 +3,34 @@
 <h2>{{ title }}</h2>
 <p>{{ message }}</p>
 <div class="about-container">
-    <form action="{% url 'selection' %}" method="post" id="selection">
-        {% csrf_token %}
-        <div class='table-title-container'>
-            <h1>Printers List</h1>
-            <div class="table-controls-container">
-                <button value="Update" type="submit" class="icon-button fa fa-solid fa-plus fa-3x" data-toggle="modal"
-                    data-target=".add-modal" name="addRows"></button>
-                <button value="Update" type="submit" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
-                    data-target=".confirmation-modal" name="removeRows"></button>
-                <button value="Update" type="submit" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
-                    form="selection"></button>
-            </div>
+    {% csrf_token %}
+    <div class='table-title-container'>
+        <h1>Printers List</h1>
+        <div class="table-controls-container">
+            <td><button value="Add" class="icon-button fa fa-solid fa-plus fa-3x" data-toggle="modal"
+                    data-target=".add-modal" name="addRows"></button></td>
         </div>
-        {% if printers %}
-        <div class='table-container'>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>Location</th>
-                        <th>IP Address</th>
-                        <th>MAC Address</th>
-                        <th>Manufacture Date</th>
-                        <th>Comments</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Loop through the printers and display each one -->
-                    {% for printer in printers %}
-                    <tr>
-                        <td><input name='printer' class="form-check-input" type="radio" value="{{ printer.id }}"
-                                id="{{ printer.id }}"></td>
+    </div>
+    {% if printers %}
+    <div class='table-container'>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Location</th>
+                    <th>IP Address</th>
+                    <th>MAC Address</th>
+                    <th>Manufacture Date</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the printers and display each one -->
+                {% for printer in printers %}
+                <tr>
+                    <form>
                         <td>{{ printer.id }}</td>
                         <td>{{ printer.brand }}</td>
                         <td>{{ printer.model }}</td>
@@ -46,17 +39,23 @@
                         <td>{{ printer.mac_address }}</td>
                         <td>{{ printer.manufacture_date }}</td>
                         <td>{{ printer.comments }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <p>No printers found.</p>
-            {% endif %}
-        </div>
-    </form>
 
-    <div class="modal edit-modal" tabindex="-1" role="dialog">
+                        <td><button value="Delete" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
+                                data-target=".confirmation-modal" name="removeRows"></button>
+                        </td>
+                        <td><button value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
+                                data-toggle="modal" data-target=".edit-modal-{{ printer.id }}"></button></td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No printers found.</p>
+        {% endif %}
+    </div>
+    {% for printer in printers %}
+    <div class="modal edit-modal-{{ printer.id }}" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,35 +65,34 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'update_printers' %}" method="post">
+                    <form action="{% url 'update_printers' printer.id %}" method="post">
                         {% csrf_token %}
-                        <p> Is this here? </p>
-                        <p> {{ selected_printer.brand }} </p>
                         <div class="form-group">
                             <label for="brand">Brand</label>
-                            <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand"
-                                value="{{ selected_printer.brand}}">
+                            <input type="text" class="form-control" id="brand" name="brand"
+                                placeholder="Brand" value="{{ printer.brand}}">
                             <label for="model">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" placeholder="Model"
-                                value="{{ selected_printer.model}}">
+                            <input type="text" class="form-control" id="model" name="model"
+                                placeholder="Model" value="{{ printer.model}}">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="Location"
-                                value="{{ selected_printer.location}}">
+                            <input type="text" class="form-control" id="location" name="location"
+                                placeholder="Location" value="{{ printer.location}}">
                             <label for="ip_address">IP Address</label>
                             <input type="text" class="form-control" id="ip_address" name="ip_address"
-                                placeholder="IP Address" value="{{ selected_printer.ip_address}}">
+                                placeholder="IP Address" value="{{ printer.ip_address}}">
                             <label for="mac_address">MAC Address</label>
                             <input type="text" class="form-control" id="mac_address" name="mac_address"
-                                placeholder="MAC Address" value="{{ selected_printer.mac_address}}">
+                                placeholder="MAC Address" value="{{ printer.mac_address}}">
                             <label for="manufacture_date">Manufacture Date</label>
-                            <input type="text" class="form-control" id="manufacture_date" name="manufacture_date"
-                                placeholder="Manufacture Date" value="{{ selected_printer.manufacture_date}}">
+                            <input type="text" class="form-control" id="manufacture_date"
+                                name="manufacture_date" placeholder="Manufacture Date"
+                                value="{{ printer.manufacture_date }}">
                             <label for="comments">Comments</label>
-                            <input type="text" class="form-control" id="comments" name="comments" placeholder="Comments"
-                                value="{{ selected_printer.comments}}">
+                            <input type="text" class="form-control" id="comments" name="comments"
+                                placeholder="Comments" value="{{ printer.comments}}">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" type="submit" name="editRows">Save
+                            <button class="btn btn-primary" type="submit" name="editRows">Save
                                 changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
@@ -103,6 +101,7 @@
             </div>
         </div>
     </div>
+    {% endfor %}
     <div class="modal add-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -156,31 +155,7 @@
             </div>
         </div>
     </div>
-</div>
-<!-- JavaScript to handle form submission and trigger the modal -->
-<script>
-    document.getElementById('selection').addEventListener('submit', function (event) {
-        console.log('Form submitted');
-        event.preventDefault();  // Prevent the default form submission
 
-        // Perform form submission via AJAX or Fetch API
-        // For illustration, using Fetch API
-        fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this)
-        })
-            .then(response => {
-                if (response.ok) {
-                    // If form submission is successful, show the modal
-                    $('.edit-modal').modal('show');
-                } else {
-                    alert('Form submission failed.');
-                }
-            })
-            .catch(error => {
-                alert('Error occurred during form submission.');
-            });
-    });
-</script>
+</div>
 </body>
 {% endblock %}

@@ -12,7 +12,7 @@ class Printer(models.Model):
     location = models.CharField(max_length=255)
     ip_address = models.GenericIPAddressField()
     mac_address = models.CharField(max_length=17)  # MAC addresses are typically 17 characters long
-    manufacture_date = models.DateField()
+    manufacture_date = models.CharField(max_length=100)
     comments = models.TextField(blank=True, null=True)  # Allow comments to be optional
 
     def __str__(self):

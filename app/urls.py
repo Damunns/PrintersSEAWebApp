@@ -3,6 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.about, name='about'),
-    path('update_printers/', views.update_printers, name='update_printers'),
-    path('selection/', views.selection, name='selection'),
+    path('update_printers/<printer_id>/', views.update_printers, name='update_printers'),
 ]

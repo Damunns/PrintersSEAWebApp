@@ -3,8 +3,8 @@ Definition of views.
 """
 
 from datetime import datetime
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpRequest, HttpResponseBadRequest
 from .models import Printer  # Import the Printer model
 
 def home(request):
@@ -22,8 +22,6 @@ def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
     printers = Printer.objects.all()
-
-    print('Loaded about page')
     return render(
         request,
         'app/about.html',
@@ -35,68 +33,69 @@ def about(request):
         }
     )
 
-def update_printers(request,printer_id,printer_brand,printer_model,printer_location,printer_ip_address,printer_mac,printer_manufacture_date,printer_comments):
+def update_printers(request,printer_id):
     printer = get_object_or_404(Printer, pk=printer_id)
     try:
-        try:
-            printer_id = request.POST['addRows']
-            selected_printer = Printer.objects.get(pk=printer_id)
-        except ValueError:
-            return render(request, 'app/about.html', {
-                'selected_printer': printer[printer_id],
-                'error_message': "Invalid printer ID.",
-            })
-        print(selected_printer.model)
+        printer = Printer.objects.get(pk=printer_id)
     except (KeyError, printer.DoesNotExist):
         return render(request, 'app/about.html', {
-            'selected_printer': printer[printer_id],
+            'printer': printer,
             'error_message': "Printer not found.",
         })
     else:
-        selected_printer.model = printer_model
-        selected_printer.brand = printer_brand
-        selected_printer.location = printer_location
-        selected_printer.ip_address = printer_ip_address
-        selected_printer.mac_address = printer_mac
-        selected_printer.manufacture_date = printer_manufacture_date
-        printer_comments = printer_comments
-        selected_printer.save()
-        return render(request, 'app/about.html', {
-            'selected_printer': printer[printer_id],
-            'success_message': "Printer updated successfully.",
-        })
+        brand = request.POST['brand']
+        model = request.POST['model']
+        location = request.POST['location']
+        ip_address = request.POST['ip_address']
+        mac_address = request.POST['mac_address']
+        #print(datetime.strptime(request.POST['manufacture_date'], "%b. %d, %Y").strftime('%Y-%m-%d'))
+        #print(datetime.strptime(request.POST['manufacture_date'], "%B %d, %Y").strftime('%Y-%m-%d'))
+        try:
+            manufacture_date = datetime.strptime(request.POST['manufacture_date'], "%B %d, %Y").strftime('%Y-%m-%d')
+        except ValueError:
+            try:
+                manufacture_date = datetime.strptime(request.POST['manufacture_date'], '%b. %d, %Y').strftime('%Y-%m-%d')
+            except ValueError:
+                # Handle cases where the date format is invalid
+                return HttpResponseBadRequest(f"Invalid date format - {request.POST['manufacture_date']}")
+        comments = request.POST['comments']
+
+        printer.brand = brand
+        printer.model = model
+        printer.location = location
+        printer.ip_address = ip_address
+        printer.mac_address = mac_address
+        printer.manufacture_date = manufacture_date
+        printer.comments = comments
+        printer.save()
+        return redirect('/about')
+    
+
+
 
 def add_printer(request,printer_id,printer_brand,printer_model,printer_location,printer_ip_address,printer_mac,printer_manufacture_date,printer_comments):
     printer = get_object_or_404(Printer, pk=printer_id)
     try:
         try:
             printer_id = request.POST['addRows']
-            selected_printer = Printer.objects.get(pk=printer_id)
+            printer = Printer.objects.get(pk=printer_id)
         except ValueError:
             return render(request, 'app/about.html', {
-                'selected_printer': printer[printer_id],
+                'printer': printer[printer_id],
                 'error_message': "Invalid printer ID.",
             })
-        print(selected_printer.model)
+        print(printer.model)
     except (KeyError, printer.DoesNotExist):
         return render(request, 'app/about.html', {
-            'selected_printer': printer[printer_id],
+            'printer': printer[printer_id],
             'error_message': "Printer not found.",
         })
     else:
-        selected_printer.model = printer_model
-        selected_printer.brand = printer_brand
-        selected_printer.location = printer_location
-        selected_printer.ip_address = printer_ip_address
-        selected_printer.mac_address = printer_mac
-        selected_printer.manufacture_date = printer_manufacture_date
-        printer_comments = printer_comments
-
-def selection(request):
-    # printer = get_object_or_404(Printer, pk=printer_id) 
-    #printer = get_object_or_404(Printer, pk=request.POST['printer']) 
-    print('HHHHEEEEERRRREEEE')
-    # return render(request, 'app/about.html', {
-    #     'selected_printer': printer,
-    #     })
-    return render(request, 'app/about.html', {})
+        printer.brand = request.POST['brand-printer_id']
+        printer.model = request.POST['model-printer_id']
+        printer.location = request.POST['location-printer_id']
+        printer.ip_address = request.POST['ip_address-printer_id']
+        printer.mac_address = request.POST['mac_address-printer_id']
+        printer.manufacture_date = request.POST['manufacture_date-printer_id']
+        printer.comments = request.POST['comments-printer_id']
+        printer.save()
