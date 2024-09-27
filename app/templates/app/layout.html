@@ -6,9 +6,16 @@
     <title>{{ title }} - David Munns' Software Engineering &amp; Agile Application</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
-    <!--<link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />-->
-    <link rel="stylesheet" type="text/css" href="/app/content/site.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/style.css' %}" />
+    <link rel="icon" type="image/png" href="{% static 'app/images/icon.png' %}" />
+    {% if debug %}
+    <script src="http://127.0.0.1:35729/livereload.js"></script>
+    {% endif %}
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    <!-- <script src="https://kit.fontawesome.com/af9b8142be.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -20,13 +27,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Software Engineering &amp; Agile</a>
+                <a href="/" class="navbar-brand">Printer Management</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'brief' %}">Assignment Brief</a></li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>
