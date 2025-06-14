@@ -11,9 +11,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('about/', include('app.urls')),
-    path('login/',
+    #path('', views.home, name='home'),
+    path('',
          LoginView.as_view(
              template_name='app/login.html',
              authentication_form=forms.BootstrapAuthenticationForm,
@@ -23,7 +22,9 @@ urlpatterns = [
              }
          ),
          name='login'),
+    path('about/', include('app.urls')),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('register/',views.register, name='register'),
     path('admin/', admin.site.urls),
 ]
 

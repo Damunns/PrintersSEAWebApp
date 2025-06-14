@@ -6,15 +6,16 @@ from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, HttpResponseBadRequest
 from .models import Printer  # Import the Printer model
+from django.contrib.auth.models import User
 
-def home(request):
+def login(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/index.html',
+        'app/login.html',
         {
-            'title':'Home Page',
+            'title':'Landing Page',
             'year':datetime.now().year,
         }
     )
@@ -30,6 +31,36 @@ def about(request):
             'message':'This is a simple printer management system that allows you to view all the printers on-site. You can view the brand, model, location, IP address, MAC address, manufacture date, and comments for each printer. You can also add a new printer, edit an existing printer, or delete a printer if you have the correct access.',
             'year':datetime.now().year,
             'printers': printers,
+        }
+    )
+def register(request):
+    """Renders the register page."""
+    assert isinstance(request, HttpRequest)
+    """
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+    if password != confirm_password:
+        #messages.error(request, "Passwords do not match.")
+        return render(request, 'auth/register.html')
+
+    try:
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+        login(request, user)  # Automatically log in the user after registration
+        return redirect('/about')  # Redirect to the home page or another page
+    except Exception as e:
+        #messages.error(request, f"Error: {e}")
+        return render(request, 'auth/register.html')
+    """
+    return render(
+        request,
+        'app/register.html',
+        {
+            'title':'Register',
+            'year':datetime.now().year,
         }
     )
 
