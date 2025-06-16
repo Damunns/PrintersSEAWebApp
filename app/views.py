@@ -4,9 +4,12 @@ Definition of views.
 
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponseBadRequest
 from .models import Printer  # Import the Printer model
 from django.contrib.auth.models import User
+from django.contrib.auth import login as auth_login
+from .forms import BootstrapAuthenticationForm, BootstrapUserCreationForm
 
 def login(request):
     """Renders the home page."""
@@ -19,6 +22,7 @@ def login(request):
             'year':datetime.now().year,
         }
     )
+@login_required
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -34,33 +38,23 @@ def about(request):
         }
     )
 def register(request):
-    """Renders the register page."""
+    """Renders the register page and handles user registration."""
     assert isinstance(request, HttpRequest)
-    """
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
-
-    if password != confirm_password:
-        #messages.error(request, "Passwords do not match.")
-        return render(request, 'auth/register.html')
-
-    try:
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        login(request, user)  # Automatically log in the user after registration
-        return redirect('/about')  # Redirect to the home page or another page
-    except Exception as e:
-        #messages.error(request, f"Error: {e}")
-        return render(request, 'auth/register.html')
-    """
+        form = BootstrapUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('/about')
+    else:
+        form = BootstrapUserCreationForm()
     return render(
         request,
         'app/register.html',
         {
             'title':'Register',
             'year':datetime.now().year,
+            'form': form,
         }
     )
 
@@ -100,9 +94,6 @@ def update_printers(request,printer_id):
         printer.comments = comments
         printer.save()
         return redirect('/about')
-    
-
-
 
 def add_printer(request,printer_id,printer_brand,printer_model,printer_location,printer_ip_address,printer_mac,printer_manufacture_date,printer_comments):
     printer = get_object_or_404(Printer, pk=printer_id)

@@ -19,13 +19,19 @@
                 <div class="form-group">
                     <label for="id_password" class="col-md-2 control-label">Password</label>
                     <div class="col-md-10">
-                        {{ form.password }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                        <div class="text-danger">{{ form.password1.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="id_confirm_password" class="col-md-2 control-label">Confirm Password</label>
                     <div class="col-md-10">
-                        {{ form.password }}
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                        <div class="text-danger">{{ form.password2.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group">
@@ -34,9 +40,6 @@
                         <input type="submit" value="Register" class="btn btn-default" />
                     </div>
                 </div>
-                {% if form.errors %}
-                <p class="validation-summary-errors">Please enter a valid user name and password.</p>
-                {% endif %}
             </form>
         </section>
     </div>
@@ -50,7 +53,7 @@
 
 {% block scripts %}
 
-    {% load static %}
+{% load static %}
 <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
 
 {% endblock %}
