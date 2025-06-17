@@ -6,7 +6,7 @@ from django.db import models
 
 # Create your models here.
 class Printer(models.Model):
-    id = models.AutoField(primary_key=True)
+    #id = models.AutoField(primary_key=True)
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
@@ -17,11 +17,6 @@ class Printer(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model} - {self.location}"
-    
-    def addPrinter(self, brand, model, location, ip_address, mac_address, manufacture_date, comments):
-        new_printer = Printer(brand=brand, model=model, location=location, ip_address=ip_address, mac_address=mac_address, manufacture_date=manufacture_date, comments=comments)
-        new_printer.save()
-        return new_printer
     
     def editPrinter(self, id, brand, model, location, ip_address, mac_address, manufacture_date, comments):
         printer = Printer.objects.get(id=id)
@@ -34,8 +29,9 @@ class Printer(models.Model):
         printer.comments = comments
         printer.save()
         return printer
-
+"""
     def deletePrinter(self, id):
         printer = Printer.objects.get(id=id)
         printer.delete()
         return None
+"""

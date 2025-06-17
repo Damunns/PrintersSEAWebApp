@@ -10,6 +10,7 @@ from .models import Printer  # Import the Printer model
 from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login
 from .forms import BootstrapAuthenticationForm, BootstrapUserCreationForm
+from dateutil import parser
 
 def login(request):
     """Renders the home page."""
@@ -58,7 +59,7 @@ def register(request):
         }
     )
 
-def update_printers(request,printer_id):
+def update_printer(request,printer_id):
     printer = get_object_or_404(Printer, pk=printer_id)
     try:
         printer = Printer.objects.get(pk=printer_id)
@@ -73,51 +74,36 @@ def update_printers(request,printer_id):
         location = request.POST['location']
         ip_address = request.POST['ip_address']
         mac_address = request.POST['mac_address']
-        #print(datetime.strptime(request.POST['manufacture_date'], "%b. %d, %Y").strftime('%Y-%m-%d'))
-        #print(datetime.strptime(request.POST['manufacture_date'], "%B %d, %Y").strftime('%Y-%m-%d'))
         try:
-            manufacture_date = datetime.strptime(request.POST['manufacture_date'], "%B %d, %Y").strftime('%Y-%m-%d')
-        except ValueError:
-            try:
-                manufacture_date = datetime.strptime(request.POST['manufacture_date'], '%b. %d, %Y').strftime('%Y-%m-%d')
-            except ValueError:
-                # Handle cases where the date format is invalid
-                return HttpResponseBadRequest(f"Invalid date format - {request.POST['manufacture_date']}")
+            manufacture_date = parser.parse(request.POST['manufacture_date']).date()
+        except (ValueError, TypeError):
+            return HttpResponseBadRequest(f"Invalid date format - {request.POST['manufacture_date']}")
         comments = request.POST['comments']
+        
+        printer.editPrinter(id=printer_id, brand=brand, model=model, location=location, ip_address=ip_address, mac_address=mac_address, manufacture_date=manufacture_date, comments=comments)
 
-        printer.brand = brand
-        printer.model = model
-        printer.location = location
-        printer.ip_address = ip_address
-        printer.mac_address = mac_address
-        printer.manufacture_date = manufacture_date
-        printer.comments = comments
-        printer.save()
         return redirect('/about')
 
-def add_printer(request,printer_id,printer_brand,printer_model,printer_location,printer_ip_address,printer_mac,printer_manufacture_date,printer_comments):
-    printer = get_object_or_404(Printer, pk=printer_id)
+def add_printer(request):
     try:
-        try:
-            printer_id = request.POST['addRows']
-            printer = Printer.objects.get(pk=printer_id)
-        except ValueError:
-            return render(request, 'app/about.html', {
-                'printer': printer[printer_id],
-                'error_message': "Invalid printer ID.",
-            })
-        print(printer.model)
-    except (KeyError, printer.DoesNotExist):
-        return render(request, 'app/about.html', {
-            'printer': printer[printer_id],
-            'error_message': "Printer not found.",
-        })
-    else:
-        printer.brand = request.POST['brand-printer_id']
-        printer.model = request.POST['model-printer_id']
-        printer.location = request.POST['location-printer_id']
-        printer.ip_address = request.POST['ip_address-printer_id']
-        printer.mac_address = request.POST['mac_address-printer_id']
-        printer.manufacture_date = request.POST['manufacture_date-printer_id']
-        printer.comments = request.POST['comments-printer_id']
-        printer.save()
+        manufacture_date = parser.parse(request.POST['manufacture_date']).date()
+        manufacture_date_str = manufacture_date.strftime('%Y-%m-%d')  # Convert to string
+    except (ValueError, TypeError):
+        return HttpResponseBadRequest(f"Invalid date format - {request.POST['manufacture_date']}")
+    printer = Printer(
+        brand=request.POST['brand'],
+        model=request.POST['model'],
+        location=request.POST['location'],
+        ip_address=request.POST['ip_address'],
+        mac_address=request.POST['mac_address'],
+        manufacture_date=manufacture_date_str,
+        comments=request.POST['comments']
+    )
+    printer.save()
+    return redirect('/about')
+
+def delete_printer(request, printer_id):
+    if request.method == "POST":
+        printer = get_object_or_404(Printer, pk=printer_id)
+        printer.delete()
+        return redirect('/about')

@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'localhost']
 LOGIN_REDIRECT_URL = '/about/'
 LOGIN_URL = '/'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [

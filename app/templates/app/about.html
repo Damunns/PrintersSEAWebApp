@@ -31,23 +31,23 @@
                 {% for printer in printers %}
                 <tr>
                     <form>
-                    <td>{{ printer.id }}</td>
-                    <td>{{ printer.brand }}</td>
-                    <td>{{ printer.model }}</td>
-                    <td>{{ printer.location }}</td>
-                    <td>{{ printer.ip_address }}</td>
-                    <td>{{ printer.mac_address }}</td>
-                    <td>{{ printer.manufacture_date }}</td>
-                    <td>{{ printer.comments }}</td>
+                        <td>{{ printer.id }}</td>
+                        <td>{{ printer.brand }}</td>
+                        <td>{{ printer.model }}</td>
+                        <td>{{ printer.location }}</td>
+                        <td>{{ printer.ip_address }}</td>
+                        <td>{{ printer.mac_address }}</td>
+                        <td>{{ printer.manufacture_date }}</td>
+                        <td>{{ printer.comments }}</td>
 
-                    <td>
-                        <button value="Delete" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
-                                data-target=".confirmation-modal" name="removeRows"></button>
-                    </td>
-                    <td>
-                        <button value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
+                        <td>
+                            <button value="Delete" class="icon-button fa fa-solid fa-trash fa-3x" data-toggle="modal"
+                                data-target=".confirmation-modal-{{ printer.id }}" name="removeRows"></button>
+                        </td>
+                        <td>
+                            <button value="Update" class="icon-button fa fa-solid fa-pencil fa-3x" name="editRows"
                                 data-toggle="modal" data-target=".edit-modal-{{ printer.id }}"></button>
-                    </td>
+                        </td>
                     </form>
                 </tr>
                 {% endfor %}
@@ -68,18 +68,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'update_printers' printer.id %}" method="post">
+                    <form action="{% url 'update_printer' printer.id %}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="brand">Brand</label>
-                            <input type="text" class="form-control" id="brand" name="brand"
-                                placeholder="Brand" value="{{ printer.brand}}">
+                            <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand"
+                                value="{{ printer.brand}}">
                             <label for="model">Model</label>
-                            <input type="text" class="form-control" id="model" name="model"
-                                placeholder="Model" value="{{ printer.model}}">
+                            <input type="text" class="form-control" id="model" name="model" placeholder="Model"
+                                value="{{ printer.model}}">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" id="location" name="location"
-                                placeholder="Location" value="{{ printer.location}}">
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Location"
+                                value="{{ printer.location}}">
                             <label for="ip_address">IP Address</label>
                             <input type="text" class="form-control" id="ip_address" name="ip_address"
                                 placeholder="IP Address" value="{{ printer.ip_address}}">
@@ -87,16 +87,14 @@
                             <input type="text" class="form-control" id="mac_address" name="mac_address"
                                 placeholder="MAC Address" value="{{ printer.mac_address}}">
                             <label for="manufacture_date">Manufacture Date</label>
-                            <input type="text" class="form-control" id="manufacture_date"
-                                name="manufacture_date" placeholder="Manufacture Date"
-                                value="{{ printer.manufacture_date }}">
+                            <input type="text" class="form-control" id="manufacture_date" name="manufacture_date"
+                                placeholder="Manufacture Date" value="{{ printer.manufacture_date }}">
                             <label for="comments">Comments</label>
-                            <input type="text" class="form-control" id="comments" name="comments"
-                                placeholder="Comments" value="{{ printer.comments}}">
+                            <input type="text" class="form-control" id="comments" name="comments" placeholder="Comments"
+                                value="{{ printer.comments}}">
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" type="submit" name="editRows">Save
-                                changes</button>
+                            <button class="btn btn-primary" type="submit" name="editRows">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -115,31 +113,36 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="brand">Brand</label>
-                    <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand">
-                    <label for="model">Model</label>
-                    <input type="text" class="form-control" id="model" name="model" placeholder="Model">
-                    <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Location">
-                    <label for="ip_address">IP Address</label>
-                    <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
-                    <label for="mac_address">MAC Address</label>
-                    <input type="text" class="form-control" id="mac_address" name="mac_address"
-                        placeholder="MAC Address">
-                    <label for="manufacture_date">Manufacture Date</label>
-                    <input type="text" class="form-control" id="manufacture_date" name="manufacture_date"
-                        placeholder="Manufacture Date">
-                    <label for="comments">Comments</label>
-                    <input type="text" class="form-control" id="comments" name="comments" placeholder="Comments">
+                    <form action="{% url 'add_printer' %}" method="post">
+                        {% csrf_token %}
+                        <label for="brand">Brand</label>
+                        <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand">
+                        <label for="model">Model</label>
+                        <input type="text" class="form-control" id="model" name="model" placeholder="Model">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                        <label for="ip_address">IP Address</label>
+                        <input type="text" class="form-control" id="ip_address" name="ip_address"
+                            placeholder="IP Address">
+                        <label for="mac_address">MAC Address</label>
+                        <input type="text" class="form-control" id="mac_address" name="mac_address"
+                            placeholder="MAC Address">
+                        <label for="manufacture_date">Manufacture Date</label>
+                        <input type="text" class="form-control" id="manufacture_date" name="manufacture_date"
+                            placeholder="Manufacture Date">
+                        <label for="comments">Comments</label>
+                        <input type="text" class="form-control" id="comments" name="comments" placeholder="Comments">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" name="addRows">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="modal confirmation-modal" tabindex="-1" role="dialog">
+    {% for printer in printers %}
+    <div class="modal confirmation-modal-{{ printer.id }}" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,15 +152,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <form action="{% url 'delete_printer' printer.id %}" method="post">
+                        {% csrf_token %}
                     <p>Do you wish to proceed</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+    {% endfor %}
 
 </div>
 </body>
