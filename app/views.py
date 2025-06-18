@@ -4,13 +4,15 @@ Definition of views.
 
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpRequest, HttpResponseBadRequest
 from .models import Printer  # Import the Printer model
 from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login
 from .forms import BootstrapAuthenticationForm, BootstrapUserCreationForm
 from dateutil import parser
+from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 
 def login(request):
     """Renders the home page."""
@@ -103,7 +105,14 @@ def add_printer(request):
     return redirect('/about')
 
 def delete_printer(request, printer_id):
+    # Manually check if the user has the required permission
+    if not request.user.has_perm('app.delete_printer'):
+        # Set a flash message for lack of permissions
+        messages.error(request, "You do not have the required permissions to delete this printer.")
+        return redirect('/about')  # Redirect to a safe page (e.g., the "about" page)
+
     if request.method == "POST":
         printer = get_object_or_404(Printer, pk=printer_id)
         printer.delete()
+        messages.success(request, "Printer deleted successfully.")
         return redirect('/about')

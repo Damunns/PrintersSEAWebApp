@@ -65,6 +65,8 @@ MIDDLEWARE = [
     'livereload.middleware.LiveReloadScript',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 ROOT_URLCONF = 'Software_Engineering___Agile_Web_Application.urls'
 
 # Template configuration

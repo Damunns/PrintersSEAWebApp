@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Printer Management</a>
+                <a href="/about" class="navbar-brand">Printer Management</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -37,7 +37,13 @@
             </div>
         </div>
     </div>
-
+    {% if messages %}
+        <ul class="messages" style="display: flex; flex-direction: column; align-items: center; justify-content: center; list-style: none; padding: 0;">
+            {% for message in messages %}
+                <li class="{{ message.tags }}" style="text-align: center;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <div class="container body-content">
 {% block content %}{% endblock %}
         <hr/>
