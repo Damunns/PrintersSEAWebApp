@@ -111,8 +111,7 @@ def delete_printer(request, printer_id):
         messages.error(request, "You do not have the required permissions to delete this printer.")
         return redirect('/about')  # Redirect to a safe page (e.g., the "about" page)
 
-    if request.method == "POST":
-        printer = get_object_or_404(Printer, pk=printer_id)
-        printer.delete()
-        messages.success(request, "Printer deleted successfully.")
-        return redirect('/about')
+    printer = get_object_or_404(Printer, pk=printer_id)
+    printer.delete()
+    messages.success(request, "Printer deleted successfully.")
+    return redirect('/about')

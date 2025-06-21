@@ -1,7 +1,16 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from django.urls import *
+from django.contrib.auth.models import User, Permission
 
 from .models import Printer 
+from django.http import HttpResponse
+
+# run tests with: python manage.py test
+class HttpResponseTest(TestCase):
+    def test_httpresponse(self):
+        """Test that the home page returns a 302 status code. (302 is expected becuase a user must be logged in to access the about page)"""
+        response = self.client.post('/about/')
+        self.assertEqual(response.status_code, 302) 
 
 class CRUDTest(TestCase):
     def setUp(self):
@@ -57,10 +66,25 @@ class UserAuthTest(TestCase):
     def setUp(self):
         """Set up test user."""
         self.test_user = User.objects.create_user(username='testuser', password='testpassword')
+        self.test_adminuser = User.objects.create_superuser(username='testadminuser', password='testadminpassword')
+        self.printer = Printer.objects.create(
+            brand="Test Brand",
+            model="Test Model",
+            location="Test Location",
+            ip_address="192.168.1.1",
+            mac_address="00:1A:2B:3C:4D:5E",
+            manufacture_date="2025-06-20",
+            comments="Test comments"
+        )
 
     def test_login(self):
         """Test user login."""
         login = self.client.login(username='testuser', password='testpassword')
+        self.assertTrue(login)
+
+    def test_admin_login(self):
+        """Test admin user login."""
+        login = self.client.login(username='testadminuser', password='testadminpassword')
         self.assertTrue(login)
 
     def test_logout(self):
@@ -69,3 +93,15 @@ class UserAuthTest(TestCase):
         self.client.logout()
         response = self.client.get('/')
         self.assertNotContains(response, 'testuser')
+
+    def test_regular_user_cannot_delete_printer(self):
+        """Test that a regular user cannot delete a printer due to insufficient permissions."""
+        self.client.login(username='testuser', password='testpassword')
+        self.client.post(f'/about/delete_printer/{self.printer.id}/')  # Simulate delete request 
+        self.assertTrue(Printer.objects.filter(id=self.printer.id).exists())  # Printer should still exist
+
+    def test_admin_user_can_delete_printer(self):
+        """Test that an admin user can delete a printer."""
+        self.client.login(username='testadminuser', password='testadminpassword')
+        self.client.post(f'/about/delete_printer/{self.printer.id}/') # Simulate delete request
+        self.assertFalse(Printer.objects.filter(id=self.printer.id).exists())  # Printer should not exist
