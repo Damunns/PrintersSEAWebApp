@@ -3,6 +3,7 @@ from django.urls import *
 from django.contrib.auth.models import User, Permission
 
 from .models import Printer 
+from .forms import BootstrapUserCreationForm
 from django.http import HttpResponse
 
 # run tests with: python manage.py test
@@ -64,9 +65,28 @@ class CRUDTest(TestCase):
 
 class UserAuthTest(TestCase):
     def setUp(self):
-        """Set up test user."""
-        self.test_user = User.objects.create_user(username='testuser', password='testpassword')
-        self.test_adminuser = User.objects.create_superuser(username='testadminuser', password='testadminpassword')
+        """Set up test user using BootstrapUserCreationForm."""
+        user_data = {
+            'username': 'testuser',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123'
+        }
+        form = BootstrapUserCreationForm(user_data)
+        self.assertTrue(form.is_valid())
+        self.test_user = form.save()
+
+        admin_data = {
+            'username': 'testadminuser',
+            'password1': 'testadminpassword123',
+            'password2': 'testadminpassword123'
+        }
+        admin_form = BootstrapUserCreationForm(admin_data)
+        self.assertTrue(admin_form.is_valid())
+        self.test_adminuser = admin_form.save()
+        self.test_adminuser.is_superuser = True
+        self.test_adminuser.is_staff = True
+        self.test_adminuser.save()
+
         self.printer = Printer.objects.create(
             brand="Test Brand",
             model="Test Model",
@@ -79,29 +99,29 @@ class UserAuthTest(TestCase):
 
     def test_login(self):
         """Test user login."""
-        login = self.client.login(username='testuser', password='testpassword')
+        login = self.client.login(username='testuser', password='testpassword123')
         self.assertTrue(login)
 
     def test_admin_login(self):
         """Test admin user login."""
-        login = self.client.login(username='testadminuser', password='testadminpassword')
+        login = self.client.login(username='testadminuser', password='testadminpassword123')
         self.assertTrue(login)
 
     def test_logout(self):
         """Test user logout."""
-        self.client.login(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword123')
         self.client.logout()
         response = self.client.get('/')
         self.assertNotContains(response, 'testuser')
 
     def test_regular_user_cannot_delete_printer(self):
         """Test that a regular user cannot delete a printer due to insufficient permissions."""
-        self.client.login(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword123')
         self.client.post(f'/about/delete_printer/{self.printer.id}/')  # Simulate delete request 
         self.assertTrue(Printer.objects.filter(id=self.printer.id).exists())  # Printer should still exist
 
     def test_admin_user_can_delete_printer(self):
         """Test that an admin user can delete a printer."""
-        self.client.login(username='testadminuser', password='testadminpassword')
+        self.client.login(username='testadminuser', password='testadminpassword123')
         self.client.post(f'/about/delete_printer/{self.printer.id}/') # Simulate delete request
         self.assertFalse(Printer.objects.filter(id=self.printer.id).exists())  # Printer should not exist
