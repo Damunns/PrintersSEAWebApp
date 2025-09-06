@@ -5,6 +5,7 @@ Definition of forms.
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
 
@@ -42,3 +43,8 @@ class BootstrapUserCreationForm(UserCreationForm):
             'placeholder': 'Confirm Password'
         })
     )
+    def save(self, commit=True):
+        user = super().save(commit)
+        regular_user_group, created = Group.objects.get_or_create(name='RegularUser')
+        user.groups.add(regular_user_group)
+        return user
