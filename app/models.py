@@ -1,19 +1,18 @@
 """
 Definition of models.
 """
-
 from django.db import models
 
 # Create your models here.
 class Printer(models.Model):
     #id = models.AutoField(primary_key=True)
-    brand = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    location = models.CharField(max_length=255)
-    ip_address = models.GenericIPAddressField()
-    mac_address = models.CharField(max_length=17)  # MAC addresses are typically 17 characters long
-    manufacture_date = models.CharField(max_length=100)
-    comments = models.TextField(blank=True, null=True)  # Allow comments to be optional
+    brand = models.CharField(max_length=100, blank=False, null=False, default="Brand")
+    model = models.CharField(max_length=100, blank=False, null=False, default="Model")
+    location = models.CharField(max_length=255, blank=False, null=False, default="Location")
+    ip_address = models.GenericIPAddressField(blank=False, null=False, default="0.0.0.0")
+    mac_address = models.CharField(max_length=17, blank=False, null=False, default="00:00:00:00:00:00")  # MAC addresses are typically 17 characters long
+    manufacture_date = models.CharField(max_length=100, blank=False, null=False, default="1900-00-00")
+    comments = models.TextField(blank=True, null=True, default="Comments")
 
     def __str__(self):
         return f"{self.brand} {self.model} - {self.location}"
@@ -29,9 +28,3 @@ class Printer(models.Model):
         printer.comments = comments
         printer.save()
         return printer
-"""
-    def deletePrinter(self, id):
-        printer = Printer.objects.get(id=id)
-        printer.delete()
-        return None
-"""
